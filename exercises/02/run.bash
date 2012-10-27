@@ -1,11 +1,11 @@
 #!/bin/bash
 
-SERVICE_RATES="100 90 80 70 60 50 45 40 35 30 25 20 15 10 5 4 3 2 1"
+SERVICE_RATE="100 90 80 70 60 55 50 45 40 35 30 25 20 15 14 13 12 11 10"
 ARRIVAL_RATE="1"
-UNIT=000000000
-AMOUNT_OF_SIMULATION=30
-OUTPUT_PATH="/local2/thiagogenez/nqs/results"
+UNIT=000000
+OUTPUT_PATH="/local2/thiagogenez/nqs/02/results"
 SIMULATOR_PATH="../../nqs.py"
+INPUT_TRACE="traffic_exercice2_sorted.in"
 
 
 
@@ -23,14 +23,12 @@ mkdir $OUTPUT_PATH
 
 echo "Starting Execution..."
 
-# Running nqs simulator  with diferent traffic values
-for i in $(seq 1 $AMOUNT_OF_SIMULATION); do
 
-    # For each service rate in SERVICE_RATES
-    for rate in $SERVICE_RATES; do
-    	echo "Simulation #$i with service rate $rate Gbits";
-    	python $SIMULATOR_PATH -o $OUTPUT_PATH/$i-$rate-Gb-$ARRIVAL_RATE-Gb.out -s $rate$UNIT -a $ARRIVAL_RATE$UNIT
-    
-    done
 
+# For each service rate in SERVICE_RATES
+for rate in $SERVICE_RATES; do
+	echo "Simulation #$i with service rate $rate Gbits";
+	python $SIMULATOR_PATH -i $INPUT_TRACE -o $OUTPUT_PATH/serviceRate-$rate-Mbit.out -s $rate$UNIT
 done
+
+echo "Simulations over!"
