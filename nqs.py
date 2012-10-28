@@ -63,7 +63,7 @@ if __name__ == "__main__":
 	#parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", help = "Verbose mode ", default=False)
 	parser.add_argument("-a", "--arrival-rate", action="store", type=float, dest='arrivalRate', default=ARRIVAL_RATE, help="Arrival rate (in bits) per second", metavar="RATE")
 	parser.add_argument("-s", "--service-rate", action="store", type=float, dest='serviceRate', default=SERVICE_RATE, help="Service rate (in bits) per second", metavar="RATE")
-	parser.add_argument("-b", "--average-packet-size", action="store", type=int, dest="packetSize", default=AVERAGE_PACKET_SIZE, help="Avarege packet size in bytes")
+	parser.add_argument("-b", "--average-packet-size", action="store", type=int, dest="averagePacketSize", default=AVERAGE_PACKET_SIZE, help="Avarege packet size in bytes")
 	parser.add_argument("-l", "--logging", dest="logging", type=str, default=LOG_LEVEL, help="Logging level", metavar="[DEBUG,INFO,WARNING,ERROR,CRITICAL]")
 	
 
@@ -98,8 +98,9 @@ if __name__ == "__main__":
 			args.traceFile = args.outputFile.name.replace(args.outputFile.name[args.outputFile.name.rfind('/')+1:],'traffic.trace')
 		else:
 			args.traceFile = "traffic.trace"
+
 		logging.warning("Creating trace file ...")
-		generate(args.traceFile,args.simulationTime,args.arrivalRate)
+		generate(args.traceFile,args.simulationTime,args.arrivalRate, args.averagePacketSize)
 		logging.warning("Trace file (%s) was created..." % args.traceFile)
 	else:
 		logging.warning("Using %s as trace file " % args.traceFile)

@@ -10,23 +10,23 @@ def exponential (mean):
 	return (-mean * math.log(random.random()))
 	#return (random.expovariate(1.0/mean))
 
-def getPacketSize ():	
-	packetSize = int(exponential(AVERAGE_PACKET_SIZE))
+def getPacketSize (averagePacketSize):	
+	packetSize = int(exponential(averagePacketSize))
 	while (packetSize < MIN_PACKET_SIZE) or (packetSize > MAX_PACKET_SIZE):
-		packetSize = int(exponential(AVERAGE_PACKET_SIZE))
+		packetSize = int(exponential(averagePacketSize))
 
 	return packetSize
 
-def getArrivalTime(arrivalRate):
-	return exponential(( AVERAGE_PACKET_SIZE * 8)/arrivalRate)
+def getArrivalTime(arrivalRate,averagePacketSize):
+	return exponential(( averagePacketSize * 8)/arrivalRate)
 
-def generate(filename,simulationTime, arrivalRate):
+def generate(filename,simulationTime, arrivalRate, averagePacketSize):
 	try:
 		with open(filename,'w') as file_in:
 			time = 0.0
 			while time <= simulationTime:
-				time += getArrivalTime(arrivalRate)
-				packetSize = getPacketSize()
+				time += getArrivalTime(arrivalRate,averagePacketSize)
+				packetSize = getPacketSize(averagePacketSize)
 					
 				file_in.write("%s \t %s\n" % (time,packetSize))
 
