@@ -20,7 +20,7 @@ for rate in $SERVICE_RATES; do
 	done
 	#txt=`echo ${array[0]} | awk 'print $1'`
 	#txt+=" `echo ${array[1]}` `echo ${array[2]}`" 
-	echo "`echo ${array[0]} | awk 'print $1'` `echo ${array[1]}` `echo ${array[2]}` `echo ${array[1]}` `echo ${array[2]}`" >> $OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot 
+	echo "`echo ${array[0]} | awk '{print $1}'` `echo ${array[2]}` `echo ${array[1]}` `echo ${array[2]}`" >> $OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot 
 done
 
 
