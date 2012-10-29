@@ -27,7 +27,7 @@ for data in ${DATA[@]}; do
 
 		set key left top
 		set term postscript enhanced eps dashed lw 1 "Helvetica" 14
-		set output "`echo $data | tr "[:upper:]" "[:lower:]"`.eps"
+		set output "$OUTPUT_PATH/eps/`echo $data | tr "[:upper:]" "[:lower:]"`.eps"
 
 		plot "$OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot"  using 1:2:3 title "Mean Delay" with yerrorlines pointtype 12
 EOF

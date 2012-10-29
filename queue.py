@@ -64,7 +64,7 @@ class Queue (deque):
 		return self.meanDelay/self.counter
 
 	def calculateMeanQueueLen(self):
-		return self.meanQueueLen/self.counter
+		return self.meanQueueLen/float(self.counter)
 
 	def calculateMeanArrivalRate(self):
 		return (self.amountOfBytesIn*8)/self.lastArrivalTime
