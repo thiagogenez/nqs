@@ -29,7 +29,7 @@ for data in ${DATA[@]}; do
 		set term postscript enhanced eps dashed lw 1 "Helvetica" 14
 		set output "`echo $data | tr "[:upper:]" "[:lower:]"`.plot "
 
-		plot  $OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot  using 1:2 title "Mean Delay" with linespoints
+		plot $OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot  using 1:2 title "Mean Delay" with linespoints
 EOF
 
 done
