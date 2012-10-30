@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "creating eps files"
+
+OUTPUT_PATH=$1
+
 
 OUTPUT_PATH="/local2/thiagogenez/nqs/01/results"
 DATA=('Mean-delay' 'Mean-queue-length')
