@@ -44,7 +44,7 @@ done
 echo "Simulaton was finished.."
 
 echo "Creating .plot files for  gnuplot...";
-./input_gnuplot.bash $OUTPUT_PATH $SERVICE_RATES
+./input_gnuplot.bash "$OUTPUT_PATH" "${SERVICE_RATES[@]}"
 echo ".plot files was created..."
 
 
