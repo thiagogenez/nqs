@@ -32,7 +32,7 @@ for i in $(seq 1 $AMOUNT_OF_SIMULATION); do
 		echo "Simulation #$i with service rate $rate Mbit/s";
 		#if [ $rate -eq 100 ]; then
 			# Generates a queue trace file for each service rate cicle
-			python $SIMULATOR_PATH -o $OUTPUT_PATH/$i-serviceRate-$rate-Mbps-$ARRIVAL_RATE-Mbps.out -s $rate -a $ARRIVAL_RATE
+			python $SIMULATOR_PATH -o $OUTPUT_PATH/$i-serviceRate-$rate-bps-$ARRIVAL_RATE$UNIT-bps.out -s $rate -a $ARRIVAL_RATE$UNIT
 
 		#else		
 		#	python $SIMULATOR_PATH -o $OUTPUT_PATH/$i-serviceRate-$rate-Mbps-$ARRIVAL_RATE-Mbps.out -s $rate -i $OUTPUT_PATH/traffic.trace
@@ -49,5 +49,5 @@ echo ".plot files was created..."
 
 
 echo "Creating .eps files..."
-./plot $OUTPUT_PATH
+./plot.bash $OUTPUT_PATH
 echo ".eps files was created..."
