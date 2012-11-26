@@ -1,10 +1,8 @@
 #!/bin/bash
 
 UNIT=000000
-SIMULATION_NUMBER=01
-SERVICE_RATES=($(seq -f "%.0f" `echo "100$UNIT -5$UNIT 10$UNIT"`))
-SERVICE_RATES[${#SERVICE_RATES[@]}+1]=9500000
-SERVICE_RATES[${#SERVICE_RATES[@]}+1]=9000000
+SIMULATION_NUMBER=03
+SERVICE_RATES=(100$UNIT 95$UNIT 90$UNIT 85$UNIT 80$UNIT 75$UNIT 70$UNIT 65$UNIT 60$UNIT 55$UNIT 50$UNIT 45$UNIT 40$UNIT 35$UNIT 30$UNIT 25$UNIT 20$UNIT 15$UNIT 14$UNIT 13$UNIT 12$UNIT 11$UNIT 10$UNIT)
 ARRIVAL_RATE="10"
 AMOUNT_OF_SIMULATION=50
 OUTPUT_PATH="/local2/thiagogenez/nqs/$SIMULATION_NUMBER/results"
@@ -25,20 +23,11 @@ echo "Starting simulation..."
 
 # Running nqs simulator with diferent traffic values
 for i in $(seq 1 $AMOUNT_OF_SIMULATION); do
-	#echo "Simulation with traffic file $i";
-	
 	# For each service rate in SERVICE_RATES
     	for rate in ${SERVICE_RATES[@]}; do
 		echo "Simulation #$i with service rate $rate Mbit/s";
-		#if [ $rate -eq 100 ]; then
-			# Generates a queue trace file for each service rate cicle
-			python $SIMULATOR_PATH -o $OUTPUT_PATH/$i-serviceRate-$rate-bps-$ARRIVAL_RATE$UNIT-bps.out -s $rate -a $ARRIVAL_RATE$UNIT
-
-		#else		
-		#	python $SIMULATOR_PATH -o $OUTPUT_PATH/$i-serviceRate-$rate-Mbps-$ARRIVAL_RATE-Mbps.out -s $rate -i $OUTPUT_PATH/traffic.trace
-		#fi	
+			python2.7 $SIMULATOR_PATH -o $OUTPUT_PATH/$i-serviceRate-$rate-bps-$ARRIVAL_RATE$UNIT-bps.out -s $rate -a $ARRIVAL_RATE$UNIT
 	done
-	mv $OUTPUT_PATH/traffic.trace $OUTPUT_PATH/$i-traffic.trace
 done
 
 echo "Simulaton was finished.."

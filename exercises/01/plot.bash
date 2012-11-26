@@ -11,7 +11,20 @@ if [ -d $OUTPUT_PATH/eps ]; then
 fi
 mkdir $OUTPUT_PATH/eps
 
+
 for data in ${DATA[@]}; do
+
+	if [ "$data" == "Mean-delay" ]; then
+		title="Utilização x Retardo médio" 
+		ylab="Retardo Médio" 
+		using="1:2:3" 
+		with="with yerrorlines pointtype 12"
+	elif [ "$data" == "Mean-queue-length" ];then
+		title="Utilização x Tamanho da Fila"
+		ylab="Tamanho Médio da Fila"
+		using="1:2"
+		with="pointtype 12" 
+	fi 
 
 	gnuplot << EOF
 		reset
@@ -23,14 +36,14 @@ for data in ${DATA[@]}; do
 		set mytics
 		set style data linespoints
 		set xlabel "Utilização"
-		set ylabel "Atraso médio"
-		set title "Utilização x Atraso médio"
+		set ylabel "$ylab"
+		set title "$title"
 
 		set key left top
 		set term postscript enhanced eps dashed lw 1 "Helvetica" 14
 		set output "$OUTPUT_PATH/eps/`echo $data | tr "[:upper:]" "[:lower:]"`.eps"
 
-		plot "$OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot"  using 1:2:3 title "Mean Delay" with yerrorlines pointtype 12
+		plot "$OUTPUT_PATH/gnuplot/`echo $data | tr "[:upper:]" "[:lower:]"`.plot"  using `echo $using` title "$ylab" `echo $with`
 EOF
 
 done
