@@ -1,7 +1,8 @@
 #!/bin/bash
 
-SERVICE_RATES="100 90 80 70 60 55 50 45 40 35 30 25 20 15 14 13 12 11 10"
 UNIT=000000
+SERVICE_RATES=(100$UNIT 95$UNIT 90$UNIT 85$UNIT 80$UNIT 75$UNIT 70$UNIT 65$UNIT 60$UNIT 55$UNIT 50$UNIT 45$UNIT 40$UNIT 35$UNIT 30$UNIT 25$UNIT 20$UNIT 15$UNIT 14$UNIT 13$UNIT 12$UNIT 11$UNIT)
+
 OUTPUT_PATH="/local2/thiagogenez/nqs/02/results"
 SIMULATOR_PATH="../../nqs.py"
 INPUT_TRACE="traffic_exercice2_sorted.in"
@@ -25,9 +26,18 @@ echo "Starting Execution..."
 
 
 # For each service rate in SERVICE_RATES
-for rate in $SERVICE_RATES; do
+for rate in ${SERVICE_RATES[@]}; do
 	echo "Simulation #$i with service rate $rate Gbits";
-	python $SIMULATOR_PATH -i $INPUT_TRACE -o $OUTPUT_PATH/serviceRate-$rate-Mbit.out -s $rate$UNIT
+	python2.7 $SIMULATOR_PATH -i $INPUT_TRACE -o $OUTPUT_PATH/serviceRate-$rate-bps.out -s $rate
 done
 
 echo "Simulations over!"
+
+echo "Creating .plot files for  gnuplot...";
+./input_gnuplot.bash "$OUTPUT_PATH" "${SERVICE_RATES[@]}"
+echo ".plot files was created..."
+
+
+echo "Creating .eps files..."
+./plot.bash $OUTPUT_PATH
+echo ".eps files was created..."
