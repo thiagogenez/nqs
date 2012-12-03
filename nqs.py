@@ -10,11 +10,12 @@ if not hasattr(sys, "hexversion") or sys.hexversion < 0x20701f0:
   	sys.stderr.write("Please, use python 2.7 or greater.\n")
   	sys.exit(1)
 
+#abort solver execution with a problem occur
 def abort():
 	logging.error("Program will exit. Bye")
 	sys.exit(-1)
 
-
+# simulate the network queue
 def simulate(filename,queue):
 	try:
 		with open(filename,'r') as traceFile:
@@ -23,9 +24,7 @@ def simulate(filename,queue):
 				(packetArrivalTime,packetSize) = line.split()
 				packetProcessingTime = queue.getProcessingTime(packetSize)
 				queue.pop(float(packetArrivalTime))
-				queue.push(Event(int(packetSize),float(packetArrivalTime),packetProcessingTime))
-
-						
+				queue.push(Event(int(packetSize),float(packetArrivalTime),packetProcessingTime))		
 			queue.clean()
 			logging.warning("Simulaton was finished...")
 			
@@ -33,13 +32,12 @@ def simulate(filename,queue):
 		logging.exception('File creation error: IOError: %s' % (ioerr))
 		abort()
 
-
+# prints queue results in accordance with logging level
 def printResults(queue):
 	logging.info("=Mean-arrival-rate: %s" % queue.calculateMeanArrivalRate())
 	logging.info("=Mean-queue-length: %s" % queue.calculateMeanQueueLen())
 	logging.info("=Mean-delay: %s" % queue.calculateMeanDelay())
 	logging.info("=Utilization: %s" % queue.getUtilization())
-
 
 if __name__ == "__main__":
 
@@ -51,7 +49,6 @@ if __name__ == "__main__":
 	import logging
 	import argparse
 	
-
 
 	# Set command line parameters
 	parser = argparse.ArgumentParser(description="Network queue simulator (NQS)", add_help=True, prog="nqs.py", usage='python %(prog)s [options]', epilog="Mail me (thiagogenez@ic.unicamp.br) for more details")
@@ -66,14 +63,12 @@ if __name__ == "__main__":
 	parser.add_argument("-b", "--average-packet-size", action="store", type=int, dest="averagePacketSize", default=AVERAGE_PACKET_SIZE, help="Avarege packet size in bytes")
 	parser.add_argument("-l", "--logging", dest="logging", type=str, default=LOG_LEVEL, help="Logging level", metavar="[DEBUG,INFO,WARNING,ERROR,CRITICAL]")
 	
-
 	# parsing arguments
 	try:
 		args = parser.parse_args()
 	except IOError as ioerr:
 		logging.exception('File creation error: IOError: %s' % (ioerr))
 		abort()
-
 
 	# Setting logging level
 	try:
@@ -83,10 +78,8 @@ if __name__ == "__main__":
 		logging.error("use -h option to help")
 		abort()
 
-
+	#set logging level
 	logging.debug(args)
-
-
 	logging.warning("Setting (%s) was output" % args.outputFile)
 	
 	# if trace file is not pass as parameter, then the simulator will create one
@@ -111,7 +104,6 @@ if __name__ == "__main__":
 	#creating queue to simulation
 	q = Queue(args.serviceRate)
 	logging.warning("Queue was created...")
-
 
 	#simulate network queue	
 	simulate(args.traceFile,q)

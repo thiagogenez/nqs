@@ -6,9 +6,9 @@ from config import *
 
 __all__ = ['generate']
 
+
 def exponential (mean):
 	return (-mean * math.log(random.random()))
-	#return (random.expovariate(1.0/mean))
 
 def getPacketSize (averagePacketSize):	
 	packetSize = int(exponential(averagePacketSize))
@@ -26,8 +26,7 @@ def generate(filename,simulationTime, arrivalRate, averagePacketSize):
 			time = 0.0
 			while time <= simulationTime:
 				time += getArrivalTime(arrivalRate,averagePacketSize)
-				packetSize = getPacketSize(averagePacketSize)
-					
+				packetSize = getPacketSize(averagePacketSize)	
 				file_in.write("%s \t %s\n" % (time,packetSize))
 
 	except IOError as ioerr:

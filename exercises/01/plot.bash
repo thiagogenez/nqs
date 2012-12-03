@@ -15,13 +15,13 @@ mkdir $OUTPUT_PATH/eps
 for data in ${DATA[@]}; do
 
 	if [ "$data" == "Mean-delay" ]; then
-		title="Utilização x Retardo médio" 
-		ylab="Retardo Médio" 
+		title="Utilizacaoo x Retardo medio" 
+		ylab="Retardo Medio" 
 		using="1:2:3" 
 		with="with yerrorlines pointtype 12"
 	elif [ "$data" == "Mean-queue-length" ];then
-		title="Utilização x Tamanho da Fila"
-		ylab="Tamanho Médio da Fila"
+		title="Utilizacao x Tamanho da Fila"
+		ylab="Tamanho Medio da Fila"
 		using="1:2"
 		with="pointtype 12" 
 	fi 
@@ -35,7 +35,7 @@ for data in ${DATA[@]}; do
 
 		set mytics
 		set style data linespoints
-		set xlabel "Utilização"
+		set xlabel "Utilizacao"
 		set ylabel "$ylab"
 		set title "$title"
 

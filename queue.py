@@ -19,7 +19,6 @@ class Queue (deque):
 		self.amountOfBytesIn = 0
 		self.serviceRate = serviceRate
 		
-
 	def push(self,e):
 
 		if(len(self) <= 0):
@@ -40,10 +39,7 @@ class Queue (deque):
 		self.lastArrivalTime = e.packetArrivalTime
 		self.amountOfBytesIn += e.packetSize
 
-		
 		logging.debug(("+ %s %s %s") % (e.id_,len(self),e.packetArrivalTime))
-
-
 
 	def pop(self,time):
 		pulled = []

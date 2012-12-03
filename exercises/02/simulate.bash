@@ -8,13 +8,10 @@ SIMULATOR_PATH="../../nqs.py"
 INPUT_TRACE="traffic_exercice2_sorted.in"
 
 
-
-
 # If simulation_data directory exist, remove it 
 if [ -d $OUTPUT_PATH ]; then
 	echo "rm -rf $OUTPUT_PATH"
 	rm -rf $OUTPUT_PATH
-
 fi
 
 # creating simulation_data directory
@@ -22,8 +19,6 @@ echo "mkdir $OUTPUT_PATH"
 mkdir $OUTPUT_PATH
 
 echo "Starting Execution..."
-
-
 
 # For each service rate in SERVICE_RATES
 for rate in ${SERVICE_RATES[@]}; do
@@ -36,7 +31,6 @@ echo "Simulations over!"
 echo "Creating .plot files for  gnuplot...";
 ./input_gnuplot.bash "$OUTPUT_PATH" "${SERVICE_RATES[@]}"
 echo ".plot files was created..."
-
 
 echo "Creating .eps files..."
 ./plot.bash $OUTPUT_PATH
